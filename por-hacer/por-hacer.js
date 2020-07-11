@@ -19,8 +19,27 @@ const guardarDB= ()=>{
     })
 }
 
+const cargarDB = () => {
+    // Como al iniciar el programa el Json esta vacio nos va a disparar un error
+    // Para manejarlo debemos hacer un try catch para manejar el error y hacer que
+    // imprima un arreglo vacio en el Json cuando no tiene datos
+    try {
+        listadoPorHacer= require('../db/data.json')
+    } catch (error) {
+        listadoPorHacer=[]
+    }
+}
+
+const getListado = () => {
+    cargarDB()
+    return listadoPorHacer
+}
+
+
 const crear = (descripcion) => {
-    
+
+    cargarDB()
+
     let porHacer = {
         // solo se pone descripcion por que si la propiedad se llama igual que
         // su valor no es necesario ponerlo dos veces
@@ -35,4 +54,4 @@ const crear = (descripcion) => {
     return porHacer
 }
 
-module.exports={crear}
+module.exports={crear, getListado}
