@@ -19,6 +19,13 @@ const argv = require('yargs')
             desc:'Marca como completado una tarea'
         }
     })
+    .command('borrar', 'Borra una tarea',{
+        descripcion:{
+            demand:true,
+            alias:'d',
+            desc:'descripcion una tarea por hacer'
+        },
+    })
     .help()
     .argv
 

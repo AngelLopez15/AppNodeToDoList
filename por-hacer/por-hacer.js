@@ -37,7 +37,6 @@ const getListado = () => {
 
 const actualizar = (descripcion, completado = true) => {
     listadoPorHacer= require('../db/data.json')
-    console.log(getListado())
     let index = listadoPorHacer.findIndex(tarea => tarea.descripcion===descripcion)
     console.log(index)
     if (index>=0) {
@@ -49,6 +48,21 @@ const actualizar = (descripcion, completado = true) => {
     }
 }
 
+const borrar = (descripcion) =>{
+    listadoPorHacer= require('../db/data.json')
+    // buscamos todos los elementos que NO coincidan con la descripcion que le pasemos
+    // y esos son los que nos va a regresar el metodo filter para NO eliminarlos
+    let nuevoListado = listadoPorHacer.filter(tarea => tarea.descripcion!==descripcion)
+    if(listadoPorHacer.length===nuevoListado){
+        // quiere decir que no se elimino nada
+        return false
+    }else{
+        // reemplazamos el listado viejo por el listado nuevo para actualizar laBD
+        listadoPorHacer=nuevoListado
+        guardarDB()
+        return true
+    }
+}
 
 const crear = (descripcion) => {
 
@@ -68,4 +82,4 @@ const crear = (descripcion) => {
     return porHacer
 }
 
-module.exports={crear, getListado, actualizar}
+module.exports={crear, getListado, actualizar, borrar}
