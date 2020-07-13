@@ -35,6 +35,20 @@ const getListado = () => {
     return listadoPorHacer
 }
 
+const actualizar = (descripcion, completado = true) => {
+    listadoPorHacer= require('../db/data.json')
+    console.log(getListado())
+    let index = listadoPorHacer.findIndex(tarea => tarea.descripcion===descripcion)
+    console.log(index)
+    if (index>=0) {
+        listadoPorHacer[index].completado=completado
+        guardarDB()
+        return true
+    } else {
+        return false
+    }
+}
+
 
 const crear = (descripcion) => {
 
@@ -54,4 +68,4 @@ const crear = (descripcion) => {
     return porHacer
 }
 
-module.exports={crear, getListado}
+module.exports={crear, getListado, actualizar}
